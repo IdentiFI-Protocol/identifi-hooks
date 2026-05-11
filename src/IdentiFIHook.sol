@@ -34,8 +34,8 @@ contract IdentiFIHook is IHooks, Ownable {
     /// @notice Whitelist of routers allowed to propagate identity.
     mapping(address => bool) public isTrustedRouter;
 
-    /// @notice Expected length of hookData (uint32 nonce + 32 bytes R + 32 bytes S + 1 byte V).
-    uint256 public constant HOOK_DATA_LENGTH = 69;  
+    /// @notice Expected length of hookData (4 slots of 32 bytes each = 128 bytes).
+    uint256 public constant HOOK_DATA_LENGTH = 128;  
 
     event LogSetTrustedRouter(address indexed router, bool status);
 
@@ -114,7 +114,7 @@ contract IdentiFIHook is IHooks, Ownable {
         }
 
         // 2. Decode the proof components (Nonce + Signature R, S, V).
-        (uint32 proofNonce, bytes32 r, bytes32 s, uint8 v) = _decodeHookData(hookData);
+        (uint256 proofNonce, bytes32 r, bytes32 s, uint8 v) = _decodeHookData(hookData);
 
         // 3. Prevent Replay Attacks by ensuring nonces are strictly increasing for the real user.
         if (proofNonce <= lastUserNonce[user]) revert ReplayAttack();
@@ -136,7 +136,8 @@ contract IdentiFIHook is IHooks, Ownable {
      */
     function validateHookData(address user, bytes calldata hookData) external view returns (bool) {
         if (hookData.length != HOOK_DATA_LENGTH) return false;
-        (uint32 proofNonce, bytes32 r, bytes32 s, uint8 v) = _decodeHookData(hookData);
+        (uint256 proofNonce, bytes32 r, bytes32 s, uint8 v) = _decodeHookData(hookData);
+        if (proofNonce <= lastUserNonce[user]) return false;
         return _isValidSignature(user, proofNonce, r, s, v);
     }
 
@@ -144,14 +145,14 @@ contract IdentiFIHook is IHooks, Ownable {
     function _decodeHookData(bytes calldata hookData)
         internal
         pure
-        returns (uint32 proofNonce, bytes32 r, bytes32 s, uint8 v)
+        returns (uint256 proofNonce, bytes32 r, bytes32 s, uint8 v)
     {
         assembly {
-            let rawNonce := calldataload(hookData.offset)
-            proofNonce := shr(224, rawNonce)
-            r := calldataload(add(hookData.offset, 4))
-            s := calldataload(add(hookData.offset, 36))
-            v := byte(0, calldataload(add(hookData.offset, 68)))
+            let ptr := hookData.offset
+            proofNonce := calldataload(ptr)          // Slot 0 (0-31): Nonce
+            r := calldataload(add(ptr, 32))         // Slot 1 (32-63): R
+            s := calldataload(add(ptr, 64))         // Slot 2 (64-95): S
+            v := byte(0, calldataload(add(ptr, 96))) // Slot 3 (96-127): V (first byte)
         }
         
         // Protection against Signature Malleability (s must be in the lower half of the curve).
@@ -163,7 +164,7 @@ contract IdentiFIHook is IHooks, Ownable {
     /// @dev Reconstructs the EIP-191 message and recovers the signer.
     function _isValidSignature(
         address user,
-        uint32 proofNonce,
+        uint256 proofNonce,
         bytes32 r,
         bytes32 s,
         uint8 v
