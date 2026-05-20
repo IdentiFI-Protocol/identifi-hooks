@@ -1,0 +1,23 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+solc_version = '0.8.26'
+evm_version = "cancun"
+
+# --- OTIMIZAÇÃO PARA PRODUÇÃO ---
+optimizer = true
+optimizer_runs = 20000 
+via_ir = true 
+
+ffi = false
+
+remappings = [
+    "v4-core/=lib/v4-hooks-public/lib/v4-core/src/",
+    "v4-periphery/=lib/v4-periphery/src/",
+    "v4-hooks-public/=lib/v4-hooks-public/",
+    "solmate/=lib/v4-hooks-public/lib/v4-core/lib/solmate/",
+    "forge-std/=lib/forge-std/src/",
+    "@uniswap/v4-core/=lib/v4-hooks-public/lib/v4-core/"
+]
