@@ -6,7 +6,7 @@ libs = ["lib"]
 solc_version = '0.8.26'
 evm_version = "cancun"
 
-# --- OTIMIZAÇÃO PARA PRODUÇÃO ---
+
 optimizer = true
 optimizer_runs = 20000 
 via_ir = true 
