@@ -1,7 +1,7 @@
 # 🪝 IdentiFI Protocol — Sovereign Privacy Hooks for Uniswap v4
 
 [![Incubator](https://img.shields.io/badge/Uniswap_v4-Incubator_(UHI9)-00d9ff?style=flat-square&logo=ethereum)](https://identifiprotocol.vercel.app/)
-[![DeFi](https://img.shields.io/badge/DeFi-Privacy_Gatekeeping-00f2ff?style=flat-square&logo=rust)](https://identifiprotocol.vercel.app/)
+[![DeFi](https://img.shields.io/badge/DeFi-Privacy_Gatekeeping-00d9ff?style=flat-square&logo=rust)](https://identifiprotocol.vercel.app/)
 
 > **Unichain Sepolia L2 Faucet & Swap Portal:** Experience the end-to-end stateless compliance flow natively on the Unichain Sepolia L2 Testnet.
 
@@ -80,16 +80,16 @@ The smart contracts and client logic enforce the following business rules:
 
 ---
 
-## End-to-End Evaluation Guide for Judges
+## End-to-End prototype evaluation guide for judges
 
 To interactively test and verify the entire cryptographic pipeline, follow this 4-step walkthrough:
 
 ### Step 1: Connect & Claim Mock Collateral
 1. Navigate to the **[IdentiFI Web Portal](https://identifiprotocol.vercel.app/)**.
-2. Click the **Claim Faucet** button located directly above the privacy documentation. 
+2. Click the **X-Core** At the top of the page, proceed to the "how to test and faucet" page. 
 3. The dApp will trigger a one-click transaction calling the `IdentiFIFaucet` contract on Unichain Sepolia, sending you **100 mUSDT** and **100 mUSDC** mock tokens immediately, and offering an easy 1-click option to add the custom tokens to MetaMask.
 
-### Step 2: Forge the Off-chain Authority Proof
+### Step 2: Forge the Off-chain Authority Proof/ inside the "app page".
 1. Click **Initialize Genesis** to sync your active Web3 wallet.
 2. Link Cluster: Add the public addresses of your secondary wallets (the strands).
 3. Secure Activation: Perform an on-chain payment through the IdentiFI contract to trigger the generation of your unique authorization credential.
@@ -97,17 +97,17 @@ To interactively test and verify the entire cryptographic pipeline, follow this 
 5. In the top-right, click **Audit Authority** to display the contained and secure data.
 
 ### Step 3: Configure and Quote the Swap
-1. Open the Swap Portal (click **IdentiFI Swap** at the bottom-right).
+1. Open the Swap Portal (click **IdentiFI Swap** at the top or links).
 2. Paste the generated obfuscated proof payload into the slot and hit **Process**. The `X-CORE` signal terminal will log the validation handshake.
 3. Type the swap amount. The quoter will dynamically calculate the **0.066% Protocol Fee**, the estimated minimum received output based on your active slippage tolerance selectable between `0.1%`, `0.5%`, and `1.0%`, and query your real wallet token balance dynamically.
 
 ⚠️ Security Note: Swap execution is strictly gated. Only wallets explicitly authorized within your generated Proof and currently within the active session validity window will be permitted to initiate and settle a swap.
 
 ### Step 4: Execute the Secure Hook Swap
-1. Hit the gradient **SWAP** button.
+1. Hit the **SWAP** button.
 2. Sign the transaction in MetaMask.
 3. Monitor the side **X-CORE Signal Terminal** as it prints real-time logs in the exact protocol specification format: `[TIMESTAMP] CATEGORY: MESSAGE`.
-4. Upon settlement, a dynamic ciano anchor **`➥ VIEW ON BLOCKSCOUT`** will appear below the swap card. Click it to inspect your transaction real-time on the Unichain Sepolia Explorer!
+4. Upon settlement, the button will become SUCCESS. **`➥ VIEW ON BLOCKSCOUT`** will appear below the swap card. Click it to inspect your transaction real-time on the Unichain Sepolia Explorer!
 
 ---
 
@@ -120,4 +120,4 @@ To interactively test and verify the entire cryptographic pipeline, follow this 
 
 ---
 
-*Built with passion, cryptography, and Rust during the Uniswap Hook Incubator (UHI9). Let's build the future of decentralized privacy, brick by brick.* 🧱🛡️
+*Built with passion, cryptography, and Rust during the Uniswap Hook Incubator (UHI9). Let's build the future of decentralized privacy, brick by brick.* 
