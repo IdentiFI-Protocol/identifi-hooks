@@ -32,3 +32,14 @@ This is an evolving repository. Future implementations will include:
 - **Cross-Chain Signal Hooks**: Expanding the authority layer to multi-chain liquidity environments.
 
 - **Modular Vault Controllers**: Using proofs to manage access to specialized liquidity pools.
+
+---
+
+   [![Uniswap v4](https://img.shields.io/badge/Uniswap-v4_Incubator-ff007a?logo=uniswap&logoColor=white)](https://hooks.atrium.academy)
+   [![Foundry](https://img.shields.io/badge/Built_with-Foundry-F7931A?logoColor=white)](https://book.getfoundry.sh/)
+
+This repository serves as the *official hub* for IdentiFI Protocol’s `smart contract hooks` and modular integrations. 
+*Originally engineered and shippped during the **Uniswap Hook Incubator (UHI9)** by Atrium Academy.*
+
+> 💡 **UHI9 Hookathon Evaluation Score: 3.675 / 5.0**  
+> *"The implementation is well structured and engineered... The Chainlink with a TWAP fallback shows clever resilience and ironically the proactive use of Reactive makes it stand out."* — Hookathon Jury Panel (Functionality Score: **4.5/5.0** |Unique Execution Score: **4.0/5.0**)
